@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax读取xml文件</title>
+</head>
+<body>
+	<input type="button" value="获取" onclick="getData()" />
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<td id="category">书的类型</td>
+					<td id="title">书名</td>
+					<td id="author">作者</td>
+					<td id="email">邮箱</td>					
+					<td id="date">出版日期</td>					
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+<script type="text/javascript">
+	function getData(){
+		var xhr = getXmlHttpRequestObject();
+		xhr.open("get","article.xml");
+		xhr.send();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.status==200 && xhr.readyState==4){
+				var dataDoc = xhr.responseXML;
+				var articles = dataDoc.getElementsByTagName("article");
+				var tbody = document.getElementsByTagName("tbody")[0];
+				for(var i = 0 ; i < articles.length;i++){
+					var article = articles[i];
+					//创建category td的过程
+					var category = article.getAttribute("category");
+					//1.创建 category td的文本节点
+					var categoryNode = document.createTextNode(category);
+					//2.创建category td
+					var ctd = document.createElement("td");
+					//3.添加文本节点
+					ctd.appendChild(categoryNode);
+					
+					var tr = document.createElement("tr");
+					tr.appendChild(ctd);
+					var childrenNodes = article.childNodes;
+					for(var j = 0 ; j < childrenNodes.length ; j ++){
+						var c = childrenNodes[j];
+						var content = c.textContent;
+						var txt = document.createTextNode(content);
+						var td = document.createElement("td");
+						td.appendChild(txt);
+						tr.appendChild(td);
+					}
+					tbody.appendChild(tr);
+				}
+			}
+		}
+	
+	}
+	function getXmlHttpRequestObject() {
+		var xmlHttp = null;
+		try {
+			// Firefox, Opera 8.0+, Safari
+			xmlHttp = new XMLHttpRequest();
+		} catch (e) {
+			// Internet Explorer
+			try {
+				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch (e) {
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		}
+		return xmlHttp;
+	}
+</script>
+</html>

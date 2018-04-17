@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>获取json数据</title>
+</head>
+<body>
+<input type="button" value="获取"/>
+<table style="display: none;">
+	<thead>
+		<tr>
+			<th>类型</th>
+			<th>书名</th>
+			<th>作者</th>
+			<th>邮箱</th>
+			<th>发布</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+</table>
+</body>
+<script type="text/javascript">
+	/* document.getElementsByTagName("input")[0].onclick = function(){
+		var xhr = getXmlHttpRequestObject();
+		xhr.open("get","JSONServlet");
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState==4 && xhr.status==200){
+				var arr = eval(xhr.responseText);
+				for(var i = 0 ; i < arr.length ; i++){
+					alert(arr[i]["category"]);
+				}
+			}
+		}
+	}
+	
+	function getXmlHttpRequestObject(){
+		var xhr = null;
+		try{
+			xhr = new XMLHttpRequest();
+		}catch(e){
+			try{
+				xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			}catch(e){
+				xhr = new ActiveXObject("Microsof.XMLHTTP");
+			}
+		}
+		return xhr;
+	} */
+</script>
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+	$(":button").click(function(){
+		$.ajax({
+			type:"get",
+			url:"JSONServlet",
+			dataType:"json",
+			success:function(data){
+				for(var i = 0 ; i < data.length ; i++){
+					var str = "<tr>";
+					/* str += "<td>"+data[i]["category"]+"</td>";
+					str += "<td>"+data[i]["title"]+"</td>";
+					str += "<td>"+data[i]["author"]+"</td>";
+					str += "<td>"+data[i]["email"]+"</td>";
+					str += "<td>"+data[i]["date"]+"</td>"; */
+					for(x in data[i]){
+						str+= "<td>"+data[i][x]+"</td>";
+					}
+					str += "</tr>";
+					$("tbody").append(str);
+				}
+				$("table").css("display","block");
+			}
+		});
+	});
+</script>
+</html>

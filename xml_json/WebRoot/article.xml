@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articles>
+	<article category="纪实">
+	</article>
+	<article category="小说">
+		<title>罪恶之城</title>
+		<author>烟雨江南</author>
+		<email>sin_rain@sina.com</email>
+		<date>20180405</date>
+	</article>
+	<article category="玄幻">
+		<title>凡人修仙传</title>
+		<author>天蚕土豆</author>
+		<email>potato@163.com</email>
+		<date>20180406</date>
+	</article>
+</articles>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyHtml.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8" />
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    <input value="获取" type="button"/>
+  </body>
+  <script type="text/javascript"src="js/jquery-3.1.1.js"></script>
+  <script type="text/javascript">
+  	$(function(){
+	  	$(":button").click(function(){
+	  		$.ajax({
+	  			type:"POST",
+	  			url : "JSON",
+	  			dataType:"json",
+	  			success:function(data){
+	  				for(x in data){
+	  					for(y in data[x]){
+	  						console.log(data[x][y]);
+	  					}
+	  				}
+	  			}
+	  		});
+	  	});
+  	});
+  </script>
+</html>
